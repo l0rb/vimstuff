@@ -77,6 +77,9 @@ set t_ut= " background color when paging
 let g:vdebug_options = {}
 let g:vdebug_options["port"] = 9000
 
+"syntastic
+let g:syntastic_quiet_messages = {"regex":['no-self-argument','redefined-outer-name','line-too-long','attribute-defined-outside-init']}
+
 " disable arrow keys to force use of hjkl and make movement adhere to display lines instead of file lines
 nnoremap <up> <nop>
 nnoremap <down> <nop>
