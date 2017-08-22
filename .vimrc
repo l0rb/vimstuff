@@ -22,12 +22,12 @@ set smartcase
 set statusline=%{winnr()}\ %t\ %m " window number
 
 " width of a tab, spaces instead of tabs
-set tabstop=3 " I like it
-" set expandtab
+set tabstop=4 " I like it
+set expandtab
 
 " folding (mostly for python)
 set foldmethod=indent
-set shiftwidth=3 " indentlevel = indent/shiftwidth, so i want this to be the same value as tabstop
+set shiftwidth=4 " indentlevel = indent/shiftwidth, so i want this to be the same value as tabstop
 set foldignore=  " do not ignore comments
 
 " syntax highlighting
@@ -63,9 +63,9 @@ map <A-Up> :wincmd k<CR>
 
 " open-file-in-gui-text-editor command (e.g. for copy-pasting with mouse for pastebin or whatever)
 " the cmap one is annoying because it prevents search for strings that contain 'mp' or open files that contain 'mp'
-" nmap mp !mousepad %:p
+nmap mp :!mousepad %:p<CR>
 " cmap mp !gedit %:p 
-nmap mp :!gedit %:p<CR>
+" nmap mp :!gedit %:p<CR>
 
 " toggle folds with space
 map <space> za
@@ -78,7 +78,11 @@ let g:vdebug_options = {}
 let g:vdebug_options["port"] = 9000
 
 "syntastic
-let g:syntastic_quiet_messages = {"regex":['no-self-argument','redefined-outer-name','line-too-long','attribute-defined-outside-init']}
+let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_quiet_messages = {"regex":['no-self-argument','redefined-outer-name','line-too-long','attribute-defined-outside-init','missing-docstring','broad-except']}
+let g:syntastic_python_pylint_post_args = '--method-rgx="[a-z_][a-zA-Z0-9_]{2,30}$" --argument-rgx="[a-z_][a-zA-Z0-9_]{1,30}$" --include-naming-hint=y'
 
 " disable arrow keys to force use of hjkl and make movement adhere to display lines instead of file lines
 nnoremap <up> <nop>
