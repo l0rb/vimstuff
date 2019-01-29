@@ -61,6 +61,7 @@ set nu
 " interface++
 set showcmd
 set ruler
+set wildmenu
 
 " delete everything with backspace
 set backspace=eol,start,indent
