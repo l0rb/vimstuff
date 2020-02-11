@@ -1,64 +1,49 @@
 filetype plugin indent on
 set nocompatible
 
-" handy functions
-function ZendStyle()
-   set tabstop=4
-   set shiftwidth=4
-endfunction
+let mapleader = " "
 
-function JohannStyle()
-   set tabstop=4
-   set expandtab
-   set shiftwidth=4
-endfunction
+" plugins - https://github.com/junegunn/vim-plug
+call plug#begin('~/.vim/plugged')
+    Plug 'tpope/vim-fugitive'
+    Plug 'danro/rename.vim'
+    Plug 'kshenoy/vim-signature'
+    Plug 'nanotech/jellybeans.vim'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'jeetsukumaran/vim-buffergator'
+    Plug 'vim-airline/vim-airline'
+    "Plug 'StanAngeloff/php.vim'
+call plug#end()
 
-function YamlStyle()
-    set tabstop=2
-    set shiftwidth=2
-endfunction
-
-let mapleader="`"
+source /home/lorb/.vimrcfunctions
 
 " search is case sensitive only when it contains uppercase
 set ignorecase
 set smartcase
-set hlsearch
-nnoremap <leader><leader> :nohlsearch<CR>
-
-" window number, filename, modified flag
-set statusline=%{winnr()}\ %t\ %m " window number
-
-" easy moving between :[v]split windows
-map <A-Left> :wincmd h<CR>
-map <A-Right> :wincmd l<CR>
-map <A-Down> :wincmd j<CR>
-map <A-Up> :wincmd k<CR>
 
 " width of a tab, spaces instead of tabs
-set tabstop=3 " I like it
+set tabstop=4
 set expandtab
 set autoindent
 set smartindent
 
-" folding (mostly for python)
+" folding (optimal for python)
 set foldmethod=indent
-set shiftwidth=3 " indentlevel = indent/shiftwidth, so i want this to be the same value as tabstop
+set shiftwidth=4 " indentlevel = indent/shiftwidth, so i want this to be the same value as tabstop
 set foldignore=  " do not ignore comments
 
 " syntax highlighting
 sy on 
 colo nightshade
 hi Todo none 
+hi clear SignColumn
 
 " do not override terminal background
 hi Folded ctermbg=none 
 hi Normal ctermbg=none 
 
-" line numbers
+" basic interface stuff
 set nu
-
-" interface++
 set showcmd
 set ruler
 set wildmenu
@@ -66,30 +51,22 @@ set wildmenu
 " delete everything with backspace
 set backspace=eol,start,indent
 
-" move between tabs
-map gr gT
+" tabs -> buffers
+map gr gB
+map gt gb
 
-" easy moving between :vsplit windows
-map <A-Left> :wincmd h<CR>
-map <A-Right> :wincmd l<CR>
+" toggle folds with double space
+nnoremap <leader><Space> za
 
 " open-file-in-gui-text-editor command (e.g. for copy-pasting with mouse for pastebin or whatever)
 " the cmap one is annoying because it prevents search for strings that contain 'mp' or open files that contain 'mp'
-" nmap mp !mousepad %:p
-" cmap mp !gedit %:p 
+" cmap mp !mousepad %:p 
 nmap mp :!mousepad %:p<CR>
-
-" toggle folds with space
-map <space> za
 
 " bugfixing
 set t_ut= " background color when paging
 
 " disable arrow keys to force use of hjkl and make movement adhere to display lines instead of file lines
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
 inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
@@ -97,10 +74,35 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-call JohannStyle()
+" easy moving in and resizing off [v]split windows
+nnoremap <Right> <C-w>l
+nnoremap <Left> <C-w>h
+nnoremap <Up> <C-w>k
+nnoremap <Down> <C-w>j
 
-" have some skeletons
-autocmd BufNewFile *.cpp r ~/.vim/skeletons/cpp | normal 14G
-autocmd BufNewFile *.hpp r ~/.vim/skeletons/hpp | normal 15G
-autocmd BufNewFile *.sh 0r ~/.vim/skeletons/sh | normal G
-autocmd BufNewFile *.py 0r ~/.vim/skeletons/py | normal G
+map <A-Left> :vertical resize -2<CR>
+map <A-Right> :vertical resize +2<CR>
+map <A-Down> :resize +2<CR>
+map <A-Up> :resize -2<CR>
+
+" buffergator
+let g:buffergator_viewport_split_policy="R"
+let g:buffergator_autodismiss_on_select=0
+let g:buffergator_autoupdate=1
+let g:buffergator_sort_regime="mru"
+
+function StartBuffergator()
+   BuffergatorOpen
+   wincmd h
+endfunction
+
+autocmd VimEnter * call StartBuffergator()
+
+" ctrlp
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|pyc)$',
+  \ }
+
+
