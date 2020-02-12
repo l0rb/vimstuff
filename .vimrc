@@ -58,9 +58,11 @@ map gt gb
 " toggle folds with double space
 nnoremap <leader><Space> za
 
+
 " open-file-in-gui-text-editor command (e.g. for copy-pasting with mouse for pastebin or whatever)
 " the cmap one is annoying because it prevents search for strings that contain 'mp' or open files that contain 'mp'
-" cmap mp !mousepad %:p 
+" nmap mp !mousepad %:p
+" cmap mp !gedit %:p 
 nmap mp :!mousepad %:p<CR>
 
 " bugfixing
@@ -104,5 +106,7 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll|pyc)$',
   \ }
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
 
 
