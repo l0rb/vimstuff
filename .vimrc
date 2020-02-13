@@ -51,6 +51,17 @@ set wildmenu
 " delete everything with backspace
 set backspace=eol,start,indent
 
+" Persistent undos
+set undodir=$HOME/.vim/tmp/undo//
+set undofile
+set undolevels=5000
+
+" Return to last edit position when opening files
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
 " tabs -> buffers
 map gr gB
 map gt gb
@@ -58,12 +69,14 @@ map gt gb
 " toggle folds with double space
 nnoremap <leader><Space> za
 
+" https://ddrscott.github.io/blog/2016/sidescroll/
+set sidescroll=1
 
 " open-file-in-gui-text-editor command (e.g. for copy-pasting with mouse for pastebin or whatever)
-" the cmap one is annoying because it prevents search for strings that contain 'mp' or open files that contain 'mp'
-" nmap mp !mousepad %:p
-" cmap mp !gedit %:p 
-nmap mp :!mousepad %:p<CR>
+nmap <leader>m :!mousepad %:p<CR>
+
+" insert and go to empty line below
+nmap <leader><CR> $a<CR><ESC>
 
 " bugfixing
 set t_ut= " background color when paging
