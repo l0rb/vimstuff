@@ -65,6 +65,7 @@ autocmd BufReadPost *
 " tabs -> buffers
 map gr gB
 map gt gb
+set hidden
 
 " toggle folds with double space
 nnoremap <leader><Space> za
