@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'jeetsukumaran/vim-buffergator'
     Plug 'vim-airline/vim-airline'
     "Plug 'StanAngeloff/php.vim'
+    Plug 'vim-scripts/SyntaxRange'
 call plug#end()
 
 source /home/lorb/.vimrcfunctions
@@ -37,6 +38,8 @@ sy on
 colo nightshade
 hi Todo none 
 hi clear SignColumn
+
+au BufEnter,BufNew *.blade.php call SyntaxRange#Include('@section(''ready-js'')', '@endsection', 'javascript', 'NonText')
 
 " do not override terminal background
 hi Folded ctermbg=none 
