@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'
     "Plug 'StanAngeloff/php.vim'
     Plug 'vim-scripts/SyntaxRange'
+    Plug 'solarnz/thrift.vim'
 call plug#end()
 
 source /home/lorb/.vimrcfunctions
@@ -40,6 +41,7 @@ hi Todo none
 hi clear SignColumn
 
 au BufEnter,BufNew *.blade.php call SyntaxRange#Include('@section(''ready-js'')', '@endsection', 'javascript', 'NonText')
+au BufEnter,BufNew *.blade.php call SyntaxRange#Include('@section(''page-js'')', '@endsection', 'javascript', 'NonText')
 
 " do not override terminal background
 hi Folded ctermbg=none 
@@ -125,5 +127,5 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
-
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
